@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "444708138762",
+    "project_id": "topit-tut",
+    "storage_bucket": "topit-tut.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444708138762:android:125bd935555bc6960654f3",
+        "android_client_info": {
+          "package_name": "com.example.topit_tut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "444708138762-knqbcutu0b5383actmp99mo92mdblvto.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkqWcQlljRL9g2MkO9Rsoc1HJVaH5ixvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "444708138762-knqbcutu0b5383actmp99mo92mdblvto.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "444708138762-ovk8u03k344k4b244l76djc8e9ku3ndv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.topitTut"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
