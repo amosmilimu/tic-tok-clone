@@ -91,7 +91,7 @@ class AddVideoScreen extends StatelessWidget {
   }
 
   pickVideo(ImageSource src, BuildContext context) async {
-    final video = await ImagePicker().pickImage(source: src);
+    final video = await ImagePicker().pickVideo(source: src);
     if(video != null) {
       Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ConfirmScreen(
         videoFile: File(video.path),
