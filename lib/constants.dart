@@ -10,10 +10,10 @@ import 'package:topit_tut/views/screens/video.screen.dart';
 
 List pages = [
   VideoScreen(),
-  Text('Search Screen'),
+  const Text('Search Screen'),
   const AddVideoScreen(),
-  Text('Messages Screen'),
-  Text('Profile Screen')
+  const Text('Messages Screen'),
+  const Text('Profile Screen')
 ];
 
 const backGroundColor = Colors.black;

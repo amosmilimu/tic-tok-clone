@@ -16,7 +16,7 @@ class UploadVideoController extends GetxController {
       DocumentSnapshot userDoc = await firebaseStore.collection('users').doc(
           uid).get();
       //get id
-      var allDocs = await firebaseStore.collection('videos').get();
+      var allDocs = await firebaseStore.collection('video').get();
       int len = allDocs.docs.length;
       String videoUrl = await _uploadVideoToStorage("Video $len", videoPath);
       String thumbNailUrl = await _uploadImageToStorage(

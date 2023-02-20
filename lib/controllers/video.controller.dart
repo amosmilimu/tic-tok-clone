@@ -10,7 +10,7 @@ class VideoController extends GetxController {
 
   @override
   void onInit() {
-    _videoList.bindStream(firebaseStore.collection('videos').snapshots().map((QuerySnapshot querySnapshot){
+    _videoList.bindStream(firebaseStore.collection('video').snapshots().map((QuerySnapshot querySnapshot){
       List<Video> reVal = [];
 
       for(var element in querySnapshot.docs) {
@@ -20,4 +20,19 @@ class VideoController extends GetxController {
     }));
     super.onInit();
   }
+  
+  likeVideo(String id) async {
+    DocumentSnapshot snapshot = await firebaseStore.collection('video').doc(id).get();
+    var uid = authController.user.uid;
+    if((snapshot.data() as dynamic)['likes'].contains(uid)) {
+      await firebaseStore.collection('video').doc(id).update({
+        'likes':FieldValue.arrayRemove([uid])
+      });
+    } else {
+      await firebaseStore.collection('video').doc(id).update({
+        'likes': FieldValue.arrayUnion([uid])
+      });
+    }
+  }
+  
 }
