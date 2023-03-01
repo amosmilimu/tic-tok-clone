@@ -5,15 +5,17 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:topit_tut/controllers/auth.controller.dart';
 import 'package:topit_tut/views/screens/add.video.screen.dart';
+import 'package:topit_tut/views/screens/profile.screen.dart';
+import 'package:topit_tut/views/screens/search.screen.dart';
 import 'package:topit_tut/views/screens/video.screen.dart';
 
 
 List pages = [
   VideoScreen(),
-  const Text('Search Screen'),
+  SearchScreen(),
   const AddVideoScreen(),
   const Text('Messages Screen'),
-  const Text('Profile Screen')
+  ProfileScreen(uid: authController.user.uid)
 ];
 
 const backGroundColor = Colors.black;
