@@ -4,6 +4,7 @@ import 'package:topit_tut/constants.dart';
 
 class ProfileController extends GetxController {
   final Rx<Map<String, dynamic>> _user = Rx<Map<String, dynamic>>({});
+
   Map<String, dynamic> get user => _user.value;
 
   Rx<String> _uid = "".obs;
@@ -15,15 +16,17 @@ class ProfileController extends GetxController {
 
   void getUserData() async {
     List<String> thumbNails = [];
-    var myVids = await firebaseStore.collection('video')
-    .where('uid', isEqualTo: _uid.value).get();
+    var myVids = await firebaseStore
+        .collection('video')
+        .where('uid', isEqualTo: _uid.value)
+        .get();
 
-    for(int i = 0; i < myVids.docs.length; i++) {
+    for (int i = 0; i < myVids.docs.length; i++) {
       thumbNails.add((myVids.docs[i].data() as dynamic)['thumbNail']);
     }
 
-    DocumentSnapshot userDocument = await firebaseStore.collection('users')
-    .doc(_uid.value).get();
+    DocumentSnapshot userDocument =
+        await firebaseStore.collection('users').doc(_uid.value).get();
 
     final data = userDocument.data() as dynamic;
 
@@ -34,22 +37,33 @@ class ProfileController extends GetxController {
     int followings = 0;
     bool isFollowing = false;
 
-    for(var item in myVids.docs) {
-      likes+=(item.data()['likes'] as List).length;
+    for (var item in myVids.docs) {
+      likes += (item.data()['likes'] as List).length;
     }
 
-    var followerDoc = await firebaseStore.collection('users').doc(_uid.value)
-    .collection('followers').get();
+    var followerDoc = await firebaseStore
+        .collection('users')
+        .doc(_uid.value)
+        .collection('followers')
+        .get();
 
-    var followingDoc = await firebaseStore.collection('users').doc(_uid.value)
-        .collection('followings').get();
+    var followingDoc = await firebaseStore
+        .collection('users')
+        .doc(_uid.value)
+        .collection('followings')
+        .get();
 
     followers = followerDoc.docs.length;
     followings = followingDoc.docs.length;
 
-    firebaseStore.collection('users').doc(_uid.value).collection('followers')
-    .doc(authController.user.uid).get().then((value){
-      if(value.exists) {
+    firebaseStore
+        .collection('users')
+        .doc(_uid.value)
+        .collection('followers')
+        .doc(authController.user.uid)
+        .get()
+        .then((value) {
+      if (value.exists) {
         isFollowing = true;
       } else {
         isFollowing = false;
@@ -60,7 +74,7 @@ class ProfileController extends GetxController {
       'followers': followers.toString(),
       'following': followings.toString(),
       'isFollowing': isFollowing,
-      'likes':likes.toString(),
+      'likes': likes.toString(),
       'profilePhoto': profilePhoto,
       'name': name,
       'thumbnails': thumbNails
@@ -69,4 +83,46 @@ class ProfileController extends GetxController {
     update();
   }
 
+  followUser() async {
+    var doc = await firebaseStore
+        .collection('users')
+        .doc(_uid.value)
+        .collection('followers')
+        .doc(authController.user.uid)
+        .get();
+    if (!doc.exists) {
+      await firebaseStore
+          .collection('users')
+          .doc(_uid.value)
+          .collection('followers')
+          .doc(authController.user.uid)
+          .set({});
+
+      await firebaseStore
+          .collection('users')
+          .doc(authController.user.uid)
+          .collection('followers')
+          .doc(_uid.value)
+          .set({});
+
+      _user.value.update('followers', (value) => ((int.parse(value)+1).toString()));
+    } else {
+      await firebaseStore
+          .collection('users')
+          .doc(_uid.value)
+          .collection('followers')
+          .doc(authController.user.uid)
+          .delete();
+
+      await firebaseStore
+          .collection('users')
+          .doc(authController.user.uid)
+          .collection('followers')
+          .doc(_uid.value)
+          .delete();
+
+      _user.value.update('followers', (value) => ((int.parse(value)-1).toString()));
+    }
+    _user.value.update('isFollowing', (value) => !value);
+  }
 }

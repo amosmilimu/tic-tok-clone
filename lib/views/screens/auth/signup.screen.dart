@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:topit_tut/controllers/auth.controller.dart';
+import 'package:topit_tut/views/screens/auth/login.screen.dart';
 
 import '../../../constants.dart';
 import '../../widgets/text.input.field.dart';
@@ -123,7 +124,9 @@ class SignUpScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginScreen()));
+                  },
                   child: Text(
                     'Login',
                     style: TextStyle(fontSize: 20, color: buttonColor),

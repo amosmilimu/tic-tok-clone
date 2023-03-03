@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:topit_tut/constants.dart';
 import 'package:topit_tut/views/widgets/text.input.field.dart';
 
+import 'signup.screen.dart';
+
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
@@ -86,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SignUpScreen()));
                   },
                   child: Text(
                     'Register',
